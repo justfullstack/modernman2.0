@@ -1,0 +1,4 @@
+django-db-log
+psycopg2
+django
+idmapper
