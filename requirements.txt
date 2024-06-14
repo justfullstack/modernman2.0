@@ -1,5 +1,5 @@
 django-db-log
-psycopg2
+psycopg2-binary
 django 
 setuptools
 pipenv 
