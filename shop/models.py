@@ -7,10 +7,19 @@ from django.core.validators import MinValueValidator
 from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
  
+class ActiveManager(models.Manager):
+    # allows for query: Product.objects.active()
+    def active(self):
+        return self.filter(active=True)
+    
+
+
+
 
 class Product(models.Model):
 
-    # objects = ActiveManager()
+    # links active manager to the model
+    objects = ActiveManager()
  
     name = models.CharField(max_length=64) 
     description = models.TextField(blank=True)
