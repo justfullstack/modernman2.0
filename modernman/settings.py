@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
     'modernman',
-    'shop',
+    # 'shop',
 ]
 
 
@@ -122,6 +123,13 @@ STORAGES = {
 # user uploaded media files
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# messages
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+
+}
 
 
 # Default primary key field type
