@@ -1,6 +1,11 @@
 from django.db import models
 from django.urls import reverse
+<<<<<<< HEAD
 from django.core.validators import MinValueValidator
+=======
+from django.utils.text import slugify
+from django.core.validators import MaxValueValidator, MinValueValidator
+>>>>>>> c3e90d0346b387117b2c338b2a8f7f927b28584b
 
 
 
@@ -36,5 +41,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.slug})
 
+<<<<<<< HEAD
      
 
+=======
+     
+>>>>>>> c3e90d0346b387117b2c338b2a8f7f927b28584b
