@@ -33,10 +33,8 @@ class Product(models.Model):
                 default=1
                 )
     slug = models.SlugField(
-                max_length=48, 
-                unique=True,  
-                blank=True,
-                null=True
+                default="", 
+                null=False
                 )
     active = models.BooleanField(default=True)
     on_sale = models.BooleanField(default=False)
@@ -45,9 +43,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name.title()
+    
+    
 
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.slug})
+ 
 
 
 class ProductImage(models.Model):
@@ -61,12 +62,21 @@ class ProductImage(models.Model):
             ) 
 
 
-class ProductImage(models.Model): 
-    """web clients images that are too big, because the loading time will be too high"""
-    thumbnail = models.ImageField(
-            upload_to="product-thumbnails", 
-            null=True
-            )
+# class ProductImage(models.Model): 
+#     """web clients images that are too big, because the loading time will be too high"""
+#     thumbnail = models.ImageField(
+#             upload_to="product-thumbnails", 
+#             null=True
+#             )
+
+
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="product_images")
+    thumbnail = models.ImageField(upload_to="product-thumbnails", null=True)
+
 
 
 class ProductTag(models.Model):

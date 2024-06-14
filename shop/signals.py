@@ -18,10 +18,15 @@ def generate_thumbnail(sender, instance, **kwargs):
 
     image = Image.open(instance.image)
     image = image.convert("RGB")
-    image.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
+    image.thumbnail(THUMBNAIL_SIZE, Image.Resampling.LANCZOS)
     temp_thumb = BytesIO()
     image.save(temp_thumb, "JPEG")
     temp_thumb.seek(0)
+
+ 
+
+
+
 
     # set save=False, otherwise it will run in an infinite loop
     instance.thumbnail.save(
