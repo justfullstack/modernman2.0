@@ -38,9 +38,6 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.slug})
- 
-
-
 
 
 class ProductImage(models.Model):
@@ -52,3 +49,53 @@ class ProductImage(models.Model):
     image = models.ImageField(
             upload_to="product_images"
             ) 
+
+
+class ProductImage(models.Model): 
+    """web clients images that are too big, because the loading time will be too high"""
+    thumbnail = models.ImageField(
+            upload_to="product-thumbnails", 
+            null=True
+            )
+
+
+class ProductTag(models.Model):
+    products = models.ManyToManyField(
+            Product, 
+            blank=True
+            )
+    name = models.CharField(max_length=32)
+    slug = models.SlugField(max_length=48)
+    description = models.TextField(blank=True)
+    active = models.BooleanField(default=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
