@@ -34,8 +34,7 @@ class Product(models.Model):
                 )
     slug = models.SlugField(
                 max_length=48, 
-                unique=True, 
-                blank=False
+                unique=True,  
                 )
     active = models.BooleanField(default=True)
     on_sale = models.BooleanField(default=False)
