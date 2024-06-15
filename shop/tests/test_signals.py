@@ -20,14 +20,14 @@ class TestSignal(TestCase):
                 image=ImageFile(file, name="test_thumbnail.jpg"),
                 )
 
-            with self.assertLogs("main", level="INFO") as cm:
+            with self.assertLogs("shop", level="INFO") as cm:
                 image.save()
             
             # confirm an image thumbnail has been generated
             self.assertGreaterEqual(len(cm.output), 1)
             image.refresh_from_db()
 
-        with open("modernman/fixtures/test_thumbnail.jpg", "rb",) as file:
+        with open("modernman/fixtures/test_thumbnail.png", "rb",) as file:
             expected_content = file.read()
 
         # confirm thumbnail contents match

@@ -2,21 +2,21 @@ from django.contrib import admin
 from django.utils.html import format_html
 from . import models 
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'stock_count', 'price', 'active','on_sale','featured', )
-    list_filter = ('active', 'stock_count', 'date_uploaded', 'on_sale','featured', )
-    list_editable = ('stock_count', 'featured', 'on_sale', 'active',)
-    search_fields = ('name',)
+class ProductAdmin(admin.ModelAdmin): 
+    list_display = ('name', 'stock_count', 'price', 'active','slug', 'on_sale','featured', )
+    # list_filter = ('active', 'stock_count', 'date_created', 'date_updated','slug', 'on_sale','featured', )
+    list_editable = ('stock_count', 'featured', 'on_sale', 'active', )
+    search_fields = ('name','categories',)
     prepopulated_fields = {"slug": ("name",)}
-    # readonly_fields = ('slug',)
+    # readonly_fields = ['slug',]
+    autocomplete_fields = ('categories',)
 
 
-class ProductTagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
-    list_filter = ('active',)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug') 
     search_fields = ('name',)
     prepopulated_fields = {"slug": ("name",)}
-    autocomplete_fields = ('products',)
+    
 
 
 class ProductImageAdmin(admin.ModelAdmin):
@@ -32,16 +32,15 @@ class ProductImageAdmin(admin.ModelAdmin):
                         )
         return "-"
     
-
     thumbnail_tag.short_description = "Thumbnail"
 
     def product_name(self, obj):
-        return obj.product.name
+        return obj.product.name 
 
 
 # register models to the admin
-admin.site.register(models.Product, ProductAdmin)
-admin.site.register(models.ProductTag, ProductTagAdmin)
+admin.site.register(models.Product, ProductAdmin) 
 admin.site.register(models.ProductImage, ProductImageAdmin )
+admin.site.register(models.Category, CategoryAdmin)
 
 

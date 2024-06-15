@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.urls import reverse 
 from django.core.validators import MinValueValidator
 from django.utils.text import slugify
@@ -13,6 +10,26 @@ class ActiveManager(models.Manager):
         return self.filter(active=True)
     
 
+class Category(models.Model): 
+    name = models.CharField(max_length=32)
+    slug = models.SlugField(max_length=200,
+                        db_index=True,
+                        unique=True,
+                        blank=True,  
+                        null=True,
+                        )
+    description = models.TextField(blank=True, default='')  
+
+    def __str__(self):
+        return self.name.title()
+    
+    def natural_key(self):
+        return (self.slug,)
+    
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
 
 
 
@@ -21,73 +38,69 @@ class Product(models.Model):
     # links active manager to the model
     objects = ActiveManager()
  
-    name = models.CharField(max_length=64) 
+    name = models.CharField(
+                max_length=200,
+                db_index=True,
+                ) 
+    
     description = models.TextField(blank=True)
-    price = models.IntegerField(
-                blank=False, 
-                default=0, 
-                validators=[MinValueValidator(0, 'Price cannot be negative!'),]
-                )  
+
+    price = models.DecimalField(
+                max_digits=10, 
+                decimal_places=2,
+                )
+                
     stock_count = models.IntegerField(
                 blank=False, 
-                default=1
+                default=1,
                 )
+    
     slug = models.SlugField(
-                default="", 
-                null=False
+                max_length=200,
+                db_index=True, 
+                blank=True,  
+                null=True,
                 )
+    
     active = models.BooleanField(default=True)
     on_sale = models.BooleanField(default=False)
-    featured = models.BooleanField(default=False)
-    date_uploaded = models.DateTimeField(auto_now=True)
+    featured = models.BooleanField(default=False) 
+
+    date_created = models.DateTimeField(
+                auto_now_add=True,
+                null=True,
+                )
+    
+    date_updated = models.DateTimeField(auto_now=True)
+
+    categories = models.ManyToManyField(Category)
+    
+    # images = models.ManyToManyField(ProductImage,                        
+    #                 )
 
     def __str__(self):
         return self.name.title()
     
     
-
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.slug})
+    
+    class Meta:
+        ordering = ('name',) 
+        index_together = (('id', 'slug'),)
  
+ 
+class ProductImage(models.Model): 
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, default=None)
+    image = models.ImageField(upload_to="product_images/%Y/%m/%d")
 
+    thumbnail = models.ImageField(
+                        upload_to="product-thumbnails/%Y/%m/%d", 
+                        null=True,
+                        )
 
-class ProductImage(models.Model):
-    product = models.ForeignKey(
-            Product, 
-            blank=True,
-            on_delete=models.CASCADE
-            )
-    image = models.ImageField(
-            upload_to="product_images"
-            ) 
-
-
-# class ProductImage(models.Model): 
-#     """web clients images that are too big, because the loading time will be too high"""
-#     thumbnail = models.ImageField(
-#             upload_to="product-thumbnails", 
-#             null=True
-#             )
-
-
-
-
-class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="product_images")
-    thumbnail = models.ImageField(upload_to="product-thumbnails", null=True)
-
-
-
-class ProductTag(models.Model):
-    products = models.ManyToManyField(
-            Product, 
-            blank=True
-            )
-    name = models.CharField(max_length=32)
-    slug = models.SlugField(max_length=48)
-    description = models.TextField(blank=True)
-    active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.product.name.title()
 
 
 
@@ -99,23 +112,4 @@ class ProductTag(models.Model):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
