@@ -19,8 +19,8 @@ urlpatterns = [
     path(
         'products/',
         include('shop.urls'),
-        name='products'
-    ),  
+        name='shop'
+    ),
 
 
     path(
@@ -30,7 +30,6 @@ urlpatterns = [
         ),
 
      
-
 
 ]   + static(
     settings.STATIC_URL, 

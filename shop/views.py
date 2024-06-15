@@ -11,21 +11,22 @@ class ProductListView(ListView):
     paginate_by = 15
 
     def get_queryset(self):
+        products = models.Product.objects.all()
 
-        tag = self.kwargs['tag']
-        self.tag = None
+        # tag = self.kwargs['tag']
+        # self.tag = None
 
-        if tag != "all":
-            self.tag = get_object_or_404(
-            models.ProductTag, slug=tag
-            )
+        # if tag != "all":
+        #     self.tag = get_object_or_404(
+        #     models.ProductTag, slug=tag
+        #     )
         
-        if self.tag:
-            products = models.Product.objects.active().filter(
-            tags=self.tag
-            )
-        else:
-            products = models.Product.objects.active()
+        # if self.tag:
+        #     products = models.Product.objects.active().filter(
+        #     tags=self.tag
+        #     )
+        # else:
+        #     products = models.Product.objects.active()
         
         return products.order_by("name")
 

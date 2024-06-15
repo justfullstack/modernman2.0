@@ -64,16 +64,19 @@ WSGI_APPLICATION = 'modernman.wsgi.application'
 
 
 # Database: postgres
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "modernmanv2",
-        "USER": "postgres",
-        "PASSWORD": "root",
-        "HOST": "localhost",
-        "client_encoding": "UTF8"
+with open('DB_PASS.txt') as f:
+    DB_KEY = f.read().strip()
+    
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "modernmanv2",
+            "USER": "postgres",
+            "PASSWORD": DB_KEY,
+            "HOST": "localhost",
+            "client_encoding": "UTF8"
+            }
         }
-    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
