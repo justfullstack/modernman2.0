@@ -50,7 +50,7 @@ class Product(models.Model):
                 decimal_places=2,
                 )
                 
-    stock_count = models.PositiveBigIntegerField(
+    stock_count = models.PositiveIntegerField(
                 blank=False, 
                 default=1,
                 )
@@ -92,10 +92,10 @@ class Product(models.Model):
  
 class ProductImage(models.Model): 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default=None)
-    image = models.ImageField(upload_to="product_images/%Y/%m/%d")
+    image = models.ImageField(upload_to="product_images")
 
     thumbnail = models.ImageField(
-                        upload_to="product-thumbnails/%Y/%m/%d", 
+                        upload_to="product-thumbnails", 
                         null=True,
                         )
 

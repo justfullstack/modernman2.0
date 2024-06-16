@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 @receiver(pre_save, sender=ProductImage)
 def generate_thumbnail(sender, instance, **kwargs):
 
-    # logger.info( f"Generating thumbnail for {instance.product.name}  product id: {instance.product.id}" )
+    logger.info( f"Generating thumbnail for {instance.product.name}  product id: {instance.product.id}" )
 
     image = Image.open(instance.image)
     image = image.convert("RGB")
@@ -36,3 +36,6 @@ def generate_thumbnail(sender, instance, **kwargs):
             )
     
     temp_thumb.close()
+    
+    
+    

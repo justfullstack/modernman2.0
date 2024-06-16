@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.test import TestCase
-import models
+from shop import models
 
 
 class TestModel(TestCase):

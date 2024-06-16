@@ -16,10 +16,11 @@ class TestSignal(TestCase):
         
         with open("modernman/fixtures/test_thumbnail.jpg", "rb" ) as file:
             image = models.ProductImage(
-                product=product,
-                image=ImageFile(file, name="test_thumbnail.jpg"),
-                )
+                                product=product,
+                                image=ImageFile(file, name="test_thumbnail.jpg"),
+                                )
 
+            # confirm logs generating the thumbnail
             with self.assertLogs("shop", level="INFO") as cm:
                 image.save()
             
@@ -27,7 +28,7 @@ class TestSignal(TestCase):
             self.assertGreaterEqual(len(cm.output), 1)
             image.refresh_from_db()
 
-        with open("modernman/fixtures/test_thumbnail.png", "rb",) as file:
+        with open("media/product-thumbnails/test_thumbnail.jpg", "rb",) as file:
             expected_content = file.read()
 
         # confirm thumbnail contents match
