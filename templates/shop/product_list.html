@@ -1,191 +1,81 @@
 {% extends "base.html" %}
 {% load static %}
 
+
+
 {% block title %}
     All Products | ModernMan
 {% endblock  %}
-
-
-{% block content %} 
-    <!-- products section starts  -->
-    <section class="products mt-5 mb-5">
-
-        <h1 class="section__heading mb-3">
-             All <span>Products</span> 
-        </h1>
-
-        <div class="box-container "  >
-            
-    
+ 
+ 
+{% block content %}
+    <div class="row"> 
             {% for product in page_obj %} 
-                div.box
-            {% endfor %}
-        </div>
-    </section>
-    <!-- products section ends -->
+ 
+                <p class="fw-100">
+                    {{ product.name }}
+                </p>
+                
+                <p>
+                    {% comment %} <a href="{% url "product" product.slug %}"> {% endcomment %}
+                    <a href="#">    
+                        See it here
+                    </a>
+                </p>
 
-    <div class="container-fluid justify-content-center align-items-center">
-        <div class="row mt-5 mb-5">
-            <div class="col-5 mt-3">
-                <hr>
-            </div>
+                {% if not forloop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %} 
+    </div>
 
+    
+    <div class="row"> 
+        <nav >
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{page_obj.previous_page_number}}">
+                            Previous
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" 
+                            href="#">
+                            Previous
+                        </a>
+                    </li>
+                {% endif %}
+                        {% for pagenum in page_obj.paginator.page_range %}
+                    <li class="page-item{% if page_obj.number == pagenum %} active{% endif %}">
+                        <a class="page-link" 
+                            href="?page={{pagenum}}">
+                            {{pagenum}}
+                        </a>
+                    </li>
+                {% endfor %}
 
-            <div class="col-2">
-            <h3 class="text-center  text-center">OR</h3>
-            </div>
-
-
-            <div class="col-5">
-                <hr>
-            </div>
-        </div>
-    </div>  
-
-
-
-    <section class="container category mb-5">
-
-        <div class="section__heading mb-3">
-            Shop by Category
-        </div>
-
-           {% include 'includes/category_list.html'  %}
-    </section> 
-
-
-
-{% endblock  %} 
-
-{% block js %}
-    <script>
-        "use strict";
-        console.log('PD LIST JS LOADED')
-
-
-        const renderRatings = (rating) => {
-
-            let stars;
-
-            // 0 to 0.5
-            if (rating >= 0.0 && rating < 0.5 ){
-                stars = `
-                        <span class="h6 text-gray-500"> ( No ratings ) </span>
-                        `   
-            }
-
-            // 0.5 to 1.0
-            if (rating >= 0.5 && rating < 1.0 ){
-                stars = ` 
-                        <i class="fas fa-star-half-alt">  
-                        `
-            }
-
-            // 1.0 to 1.5
-            if (rating >= 1.0 && rating < 1.5 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt">  
-                        `   
-            }
-
-            // 1.5 to 2.0
-            if (rating >= 1.5 && rating < 2.0 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt">  
-                        `               
-            }
-
-            // 2.0 to 2.5
-            if (rating >= 2.0 && rating < 2.5 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        `               
-            }
-
-            // 2.5 to 3.0
-            if (rating >= 2.5 && rating < 3.0 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star-half-alt">
-                        `               
-            }
-
-            // 3.0 to 3.5
-            if (rating >= 3.0 && rating < 3.5 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i> 
-                        `               
-            }
-
-            // 3.5 to 4.0
-            if (rating >= 3.5 && rating < 4.0 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star-half-alt">
-                        `               
-            }
-
-            // 4.0  to 4.5
-            if (rating >= 4.0 && rating < 4.5 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i>
-                        `               
-            }
-
-            // 4.5  to 4.5
-            if (rating >= 4.5 && rating < 5.0 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt">
-                        `               
-            }
-
-            // 5.0
-            if (rating === 5.0 ){
-                stars = ` 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i> 
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        `               
-            }
-
-             
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" 
+                            href="?page={{page_obj.next_page_number}}">
+                            Next
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" 
+                            href="#">
+                            Next
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock content %}
 
 
-             
 
-            return stars
-        };
-
-
-        const product_ratings = document.querySelectorAll('.product__rating');
-
-         
-        product_ratings.forEach((rating)=> {
-            let product_rating = Number(rating.textContent)
-            let res = renderRatings(product_rating)
-            console.log(product_rating);
-            console.log(res);
-
-            rating.innerHTML = '';
-            rating.innerHTML = res;
-        })
-        
-    </script> 
-{% endblock %}

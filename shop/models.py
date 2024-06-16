@@ -50,7 +50,7 @@ class Product(models.Model):
                 decimal_places=2,
                 )
                 
-    stock_count = models.IntegerField(
+    stock_count = models.PositiveBigIntegerField(
                 blank=False, 
                 default=1,
                 )
