@@ -7,6 +7,7 @@ from django.db import models
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 from django.contrib.auth.models import Group
 
 
@@ -112,14 +113,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
     objects = CustomUserManager()
     
-    first_name = models.TextField(
+    first_name = models.CharField(
                             'first_name',
                             max_length=30,
                             null=True,
                             blank=True
                         )
 
-    last_name = models.TextField(
+    last_name = models.CharField(
                             'last_name',
                             max_length=30,
                             null=True,
@@ -147,16 +148,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                             )
 
     date_joined = models.DateTimeField(
-                            'date_joined',
-                            null=True,
-                            blank=True,
-                            auto_now_add=True
+                            'date_joined', 
+                            default=timezone.now
                         )
 
     last_login = models.DateTimeField(
                             'last_login',
                             null=True,
-                            blank=True
+                            blank=True, 
                         )
 
     is_subscribed = models.BooleanField(

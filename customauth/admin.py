@@ -60,6 +60,8 @@ class UserAdmin(DjangoUserAdmin):
                             ),
                         
                         "fields": (
+                            "first_name",
+                            "last_name",
                             "email", 
                             "password1", 
                             "password2",
@@ -76,6 +78,7 @@ class UserAdmin(DjangoUserAdmin):
                 "is_staff",
                 )
     
+    
     search_fields = (
                 "email", 
                 "first_name", 
@@ -83,7 +86,8 @@ class UserAdmin(DjangoUserAdmin):
                 )
             
     
-    ordering = ("email",)
+    ordering = ("email", "first_name", "last_name")
+    readonly_fields = ('date_joined', 'last_login')
 
 
 
