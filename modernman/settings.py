@@ -151,3 +151,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # custom user model
 AUTH_USER_MODEL = "customauth.CustomUser"
+
+
+
+#  email backend
+if DEBUG:
+    # email
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_HOST = 'smtp.domain.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_PASSWORD = "password"
+    EMAIL_HOST_USER = "username"
+    EMAIL_USE_TLS = True
