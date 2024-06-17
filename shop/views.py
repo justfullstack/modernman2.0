@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from . import models
-from django.views.generic import ListView, DetailView
-
+from django.views.generic import (ListView, DetailView)
 
 
 
@@ -33,4 +32,11 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = models.Product
     template_name = 'shop/product_detail.html'
+    
+    
+    
+    
+    
+    
+    
     

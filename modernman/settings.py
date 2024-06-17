@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
     'modernman',
-    'shop',
+    'shop', 
+    'customauth',
 ]
 
 
@@ -143,3 +144,10 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+# custom user model
+AUTH_USER_MODEL = "customauth.CustomUser"
