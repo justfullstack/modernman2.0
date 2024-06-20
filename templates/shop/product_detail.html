@@ -29,7 +29,7 @@
         
         <tr>
             <th>Price</th>
-            <td>{{ object.price }}</td>
+            <td>$ {{ object.price }}</td>
         </tr>
 
         <tr>
@@ -42,7 +42,7 @@
         <tr>
             <th>Categories:</th>
             <td>
-                {{ object.categories.all|join:","|default:"No category available" }}
+                {{ object.categories.all|join:", "|default:"No category available" }}
             </td>
         </tr>
 

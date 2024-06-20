@@ -1,6 +1,6 @@
 import logging
 from django.contrib.auth import login, authenticate
-from django.contrib import messages
+from django.contrib import messages 
 from . import forms
 from django.views.generic import FormView
 from django.shortcuts import redirect
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class SignupView(FormView):
     template_name = "customauth/signup.html"
-    form_class = forms.CustomUserCreationForm
+    form_class = forms.CustomUserCreationForm 
     
     
     def get_success_url(self):

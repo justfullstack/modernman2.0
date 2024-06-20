@@ -18,7 +18,9 @@
 
                 <p class="fw-100">
                     {% for image in product.productimage_set.all %}
-                        <img src="{{ image.thumbnail.url }}" alt="{{product.name}}-thumbnail"/>
+                        <a href="{% url "product" product.slug %}">  
+                            <img src="{{ image.thumbnail.url }}" alt="{{product.name}}-thumbnail"/>
+                        </a>
                     {% endfor %}
                 </p>
 
@@ -31,8 +33,8 @@
                 </p>
                 
                 <p>
-                    <a href="{% url "product" product.slug %}">    
-                        See it here
+                    <a href="{% url "product" product.slug %}" class="btn border">    
+                        More Details
                     </a>
                 </p>
 
