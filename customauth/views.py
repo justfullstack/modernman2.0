@@ -10,17 +10,19 @@ logger = logging.getLogger(__name__)
 
 
 class SignupView(FormView):
+    """Creates a new user in the customauth.CustomUser model"""
     template_name = "customauth/signup.html"
     form_class = forms.CustomUserCreationForm 
     
     
     def get_success_url(self):
-        
+        """rediercts user on successful form submit"""
         redirect_to = self.request.GET.get("next", "/products/all")
         return redirect_to 
     
     
     def form_valid(self, form):
+        """handles the form with all valid fields"""
         response = super().form_valid(form)
         form.save()
         

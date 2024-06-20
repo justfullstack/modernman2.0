@@ -3,6 +3,8 @@ from decimal import Decimal
 from django.test import TestCase
 from django.urls import reverse
 from shop import models
+from customauth import forms
+from django.core import mail
 
 
 class TestProductViews(TestCase):
@@ -77,3 +79,42 @@ class TestProductViews(TestCase):
                         )
         
         
+        
+        
+        
+        
+        
+class TestCustomAuthViews(TestCase):
+    """A test for the custom authentication model's views"""
+    
+    def testValidSignupFormSendsEmail(self):
+        """tests the form sends an email on successful submit"""
+        form = forms.CustomUserCreationForm(
+                    {
+                        "email": "user1234@modernman.com",
+                        "password1": "abc@abcabc12!",
+                        "password2": "abc@abcabc12!",
+                    }
+                )
+        
+        self.assertTrue(form.is_valid())
+        
+        with self.assertLogs("customauth.forms", level="INFO") as cm:
+            form.send_mail()
+            
+            self.assertEqual(len(mail.outbox), 1)
+            
+            self.assertEqual(
+                    mail.outbox[0].subject, "Welcome to Modernman!"
+                )
+            
+        self.assertGreaterEqual(len(cm.output), 1)
+        
+        
+        
+    
+
+
+
+
+
