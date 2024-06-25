@@ -1,20 +1,22 @@
 import os
 from pathlib import Path
 from django.contrib import messages 
+from dotenv import load_dotenv
 
+
+
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECRET_KEY = 'django-insecure-v&d96*q_t$fy_@z$he9p39@12s$=k)q_b2jy1at82fd-g8bsx@'
-# For production -  Read secret key from a file 
-with open('secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
-
+SECRET_KEY =  os.getenv("SECRET_KEY", default="")
 
 # for devt only
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = []
 
@@ -64,15 +66,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'modernman.wsgi.application'
 
+DB_NAME = os.getenv("DB_NAME", default="")
+DB_KEY = os.getenv("DB_KEY", default="")
 
-# Database: postgres
-with open('DB_PASS.txt') as f:
-    DB_KEY = f.read().strip()
-    
-    DATABASES = {
+DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": "modernmanv2",
+            "NAME": DB_NAME,
             "USER": "postgres",
             "PASSWORD": DB_KEY,
             "HOST": "localhost",
@@ -111,8 +111,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+# Static files (CSS, JavaScript, Images) 
 STATIC_URL = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
@@ -160,8 +159,93 @@ if DEBUG:
     # email
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
-    EMAIL_HOST = 'smtp.domain.com'
-    EMAIL_PORT = 587
-    EMAIL_HOST_PASSWORD = "password"
-    EMAIL_HOST_USER = "username"
-    EMAIL_USE_TLS = True
+    EMAIL_HOST = os.getenv("EMAIL_HOST", default="")
+    EMAIL_PORT = os.getenv("EMAIL_PORT", default="")
+    EMAIL_HOST_PASSWORD = os.getenv("FCM_NOTIFICATION_APIKEY", default="")
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_PASSWORD", default="")
+    EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True)
+    
+    
+   
+LOGIN_URL = 'login'    
+LOG_OUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL   = 'login'
+    
+    
+    
+# logging
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+#             'style': '{',
+#         },
+#         'simple': {
+#             'format': '{levelname} {message}',
+#             'style': '{',
+#         },
+#     },
+
+
+
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         },
+#     },
+
+#     'handlers': {
+#         'console': {
+#             'level': 'INFO',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'verbose'
+#         },
+#         'mail_admins': {
+#             'level': 'ERROR',
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'filters': ['require_debug_true']
+#         },
+#         'file': {
+#             'level': 'ERROR',
+#             'class': 'logging.FileHandler',
+#             'formatter': 'verbose',
+#             'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
+#         }
+#     },
+
+
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#         'django.request': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+
+#         },
+#         'django.server': {
+#             'handlers': ['console'],
+#             'level': 'ERROR',
+#             'propagate': False,
+
+#         },
+#         'modernman_final.custom': {
+#             'handlers': ['file'],
+#             'formatter': 'verbose',
+#             'level': 'ERROR',
+#             'filters': ['require_debug_true'],
+#             'formatter': 'verbose',
+#             'propagate': True,
+
+#         },
+#     },
+# }
+
+# debug logging   is very verbose as it includes all database queries
+DJANGO_LOG_LEVEL = "INFO"    

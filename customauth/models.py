@@ -109,7 +109,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = None
     email = models.EmailField('email address', unique=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    
     
     objects = CustomUserManager()
     
@@ -194,10 +194,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                             blank=True
                         )
     
-    # groups = models.ManyToManyField(
-    #                         Group,  
-    #                         blank=True,
-    #                         )
+    groups = models.ManyToManyField(
+                            Group,  
+                            blank=True,
+      
+    )
+    
+    
+    # REQUIRED_FIELDS = []
     
     
     def __str__(self):

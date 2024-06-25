@@ -15,110 +15,16 @@
 
     <form method="POST">
 
-        {% csrf_token %}
+        {% csrf_token %}  
 
-        {% comment %} first_name {% endcomment %}
-        <div class="form-group">
-            {{ form.first_name.label_tag }}
-            
-            <input
-                type="first_name"
-                class="form-control {% if form.first_name.errors %} is-invalid{% endif %}"
-                id="id_first_name"
-                name="first_name"
-                placeholder="First Name:"
-                value="{{ form.email.value|default:"" }}" >
+        
+       {{ form }}
 
-            {% if form.first_name.errors %}
-                <div class="invalid-feedback">
-                    {{ form.first_name.errors }}
-                </div>
-            {% endif %}
-
-
-
-            {{ form.last_name.label_tag }}
-            
-            <input
-                type="last_name"
-                class="form-control {% if form.last_name.errors %} is-invalid{% endif %}"
-                id="id_last_name"
-                name="last_name"
-                placeholder="Last Name:"
-                value="{{ form.email.value|default:"" }}" >
-
-            {% if form.last_name.errors %}
-                <div class="invalid-feedback">
-                    {{ form.last_name.errors }}
-                </div>
-            {% endif %}
-        </div>
-
-
-
-        {% comment %} email {% endcomment %}
-        <div class="form-group">
-            {{ form.email.label_tag }}
-            
-            <input
-                type="email"
-                class="form-control {% if form.email.errors %} is-invalid{% endif %}"
-                id="id_email"
-                name="email"
-                placeholder="Your email"
-                value="{{ form.email.value|default:"" }}" >
-
-            {% if form.email.errors %}
-                <div class="invalid-feedback">
-                    {{ form.email.errors }}
-                </div>
-            {% endif %}
-        </div>
-
-        {% comment %} password {% endcomment %}
-        <div class="form-group">
-            {{ form.password1.label_tag }}
-
-            <input
-                type="password"
-                class="form-control {% if form.password1.errors %}
-                is-invalid{% endif %}"
-                id="id_password1"
-                name="password1"
-                value="{{ form.password1.value|default:"" }}">
-                
-                {% if form.password1.errors %}
-                    <div class="invalid-feedback alert alert-error">
-                        {{ form.password1.errors }}
-                    </div>
-                {% endif %}
-        </div>
-
-
-        {% comment %} password confirmation {% endcomment %}
-        <div class="form-group">
-            {{ form.password2.label_tag }}
-            
-            <input
-                type="password"
-                class="form-control{% if form.password2.errors %}
-                is-invalid{% endif %}"
-                id="id_password2"
-                name="password2"
-                value="{{ form.password2.value|default:"" }}">
-                
-                {% if form.password2.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.password2.errors }}
-                    </div>
-                {% endif %}
-        </div>
-
-        {% comment %} submit button {% endcomment %}
+       
         <button 
             type="submit" 
             class="btn btn-primary">
-            Submit
+            Sign Up
         </button>
     </form>
 {% endblock content %}
