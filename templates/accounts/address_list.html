@@ -1,0 +1,71 @@
+{% extends 'base.html' %} 
+
+
+{% block style %}
+    .address__buttons{
+        padding: auto;
+        background: #0000;
+    }
+
+{% endblock style %}
+
+
+{% block content %}
+    <!-- address list info section starts  -->
+    <h1 class=" section__heading ">My Addresses</h1>
+    <hr>
+    <section class="info-container container-fluid mt-3  mb-5">
+        <div class="row gap-3  ">
+            {% for address in object_list %}
+                <div class="col-lg-3 bg-white border   py-3 br-5  shadow" style=" ">
+                    <div class="mt-2   br-5">
+                        <p> 
+                            <b>Name: </b> <small>{{ address.name }}</small>
+                        </p>
+                        <p>
+                            <b>Address: </b> <small>{{ address.address }}</small>
+                        </p>
+                        <p>
+                            <b>Postal Code: </b> <small>{{ address.postal_code }}</small>
+                        </p>
+                        <p>
+                            <b>Town: </b> <small>{{ address.town }}</small>
+                        </p>
+                        <p>
+                            <b>County: </b> <small>{{ address.county }}</small>
+                        </p>
+                        <p>
+                            <b>City: </b> <small>{{ address.city }}</small>
+                        </p>
+                        <p>
+                            <b>Country: </b> <small>{{ address.country }}</small>
+                        </p>
+                        <p>
+                            <b>Phone: </b> <small>{{ address.phone_no }}</small>
+                        </p>
+                    </div>
+
+                    <hr>
+                    
+                    <div class="address__buttons">
+                        <a href="{% url 'update-address' address.id %} " class="btn btn-success">
+                            Edit <i class="fas fa-pen"></i>
+                        </a>
+    
+                        <a href="{% url 'delete-address' address.id %}" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}  
+        </div> 
+        <hr>
+        <div class=" mb-5 d-flex justify-content-center align-items-center">
+            <a href="{% url 'create-address' %}" class="btn btn-block shadow" >
+                Add New Address
+            </a>
+        </div>
+    </section>
+
+        <!-- address list section ends -->
+{% endblock content %}

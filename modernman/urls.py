@@ -15,11 +15,16 @@ urlpatterns = [
         ),
     
     path(
+        'accounts/', 
+        include('accounts.urls'),
+        name='accounts'
+        ),
+    
+    path(
         'auth/', 
         include('customauth.urls'),
         name='authentication'
         ),
-
 
     path(
         'products/',

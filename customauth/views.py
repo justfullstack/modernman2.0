@@ -11,6 +11,7 @@ from django.views import View
 from customauth.forms import CustomUserCreationForm
 import logging
 from django.contrib.auth import authenticate
+from django.contrib.auth.views import LoginView as DjangoLoginView
 
 
 from customauth.models import CustomUser
@@ -64,7 +65,7 @@ class SignupView(View):
                 form.send_mail()
 
                 messages.success(request, "You signed up successfully!")
-                messages.info(request, "You are now logged in")
+                messages.info(request, "You are now logged in!")
                 
                 logger.info(f"Account created successfully for email={email}...!")
                 
@@ -85,4 +86,12 @@ class SignupView(View):
         return redirect("products", "all")
  
 
- 
+
+class LoginView(DjangoLoginView):
+    
+    def get_success_url(self):
+        messages.success(self.request, "You are now logged in!")
+        return redirect(
+                    "products", 
+                    kwargs={"tags": "all"},
+                    )

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'modernman',
     'shop', 
     'customauth',
+    'accounts',
 ]
 
 

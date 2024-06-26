@@ -1,7 +1,6 @@
-from  .views import (SignupView)  
+from  .views import (SignupView, LoginView)  
 from django.urls import path  
-from django.contrib.auth.views import LogoutView
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView 
 from . import forms
 
 
@@ -16,7 +15,7 @@ urlpatterns = [
         
         path(
             'login/',
-            auth_views.LoginView.as_view(
+            LoginView.as_view(
                                     template_name="customauth/login.html",
                                     form_class=forms.AuthenticationForm,
                                 ),
