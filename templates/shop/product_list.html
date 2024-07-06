@@ -9,17 +9,17 @@
  
  
 {% block content %}
-    <div class="row"> 
+    <div class="row bg-white"> 
             {% for product in page_obj %} 
  
                 <p class="fw-100">
                     {{ product.name }}
                 </p>
 
-                <p class="fw-100">
+                <p class="fw-100 bg-white">
                     {% for image in product.productimage_set.all %}
-                        <a href="{% url "product" product.slug %}">  
-                            <img src="{{ image.thumbnail.url }}" alt="{{product.name}}-thumbnail"/>
+                        <a href="{% url "product" product.slug %}" class="bg-white">  
+                            <img src="{{ image.thumbnail.url }}" alt="{{product.name}}-thumbnail" class="img img-cover bg-white"/>
                         </a>
                     {% endfor %}
                 </p>
@@ -33,9 +33,15 @@
                 </p>
                 
                 <p>
-                    <a href="{% url "product" product.slug %}" class="btn border">    
-                        More Details
-                    </a>
+                    <div class="justify">
+                        <a href="{% url "product" product.slug %}" class="btn border">    
+                            More Details
+                        </a>
+
+                        <a href="{% url "product" product.slug %}" class="btn border">    
+                            Add to Cart
+                        </a>
+                    </div>
                 </p>
 
                 {% if not forloop.last %}

@@ -166,14 +166,12 @@ cython_debug/
 secret_key.txt
 *.pem
 *.pek
-
-
-DB_PASS.txt
-
-
-
-Hey Siz,.md
+  
 
 
 media/
 fixtures/
+
+
+
+modernman/settings.py

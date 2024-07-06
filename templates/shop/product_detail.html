@@ -60,8 +60,15 @@
             </td>
         </tr>
     </table>
-    {% comment %} <a href="{% url "add_to_cart" %}?product_id={{ object.id }}"> {% endcomment %}
-    <a href="#">    
-        Add to Cart
-    </a>
+    {% comment %} <a href="{% url "add_to_cart" %}?product_id={{object.id }}"> {% endcomment %}
+    <div class="row">
+        <div class="col">
+            <a href="#" class="border btn btn-regular m-2 p-2">    
+                Add to Cart
+            </a>
+            <a href="#" class="border btn btn-regular m-2 p-2">    
+                <i class="fas fa-arrow-right"></i>Back
+            </a>
+        </div>
+    </div>
 {% endblock content %}

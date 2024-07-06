@@ -1,6 +1,6 @@
 from base64 import urlsafe_b64decode, urlsafe_b64encode
 from django.utils import timezone
-from django.urls import reverse
+from django.urls import reverse 
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site  
 from django.contrib.auth import login
@@ -83,15 +83,13 @@ class SignupView(View):
                     login(request, user_to_login)
                     logger.info(f"Successfully logged in new user email={email}...!")
                 
-        return redirect("products", "all")
+        
+            return redirect("products", "all")
  
-
 
 class LoginView(DjangoLoginView):
     
     def get_success_url(self):
         messages.success(self.request, "You are now logged in!")
-        return redirect(
-                    "products", 
-                    kwargs={"tags": "all"},
-                    )
+        return reverse( "products", kwargs={'tag': 'all'})
+    

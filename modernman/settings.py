@@ -12,8 +12,8 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-SECRET_KEY =  os.getenv("SECRET_KEY", default="")
+SECRET_KEY = "fgSaeF%gfgg$fDF4RDDFFGs_fgdrccEtfs%gd"
+# SECRET_KEY =  os.getenv("SECRET_KEY", default="")
 
 # for devt only
 DEBUG = os.getenv("DEBUG", default=False)
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'shop', 
     'customauth',
     'accounts',
+    'checkout',
 ]
 
 
@@ -73,9 +74,11 @@ DB_KEY = os.getenv("DB_KEY", default="")
 DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": DB_NAME,
+            # "NAME": DB_NAME,
+            "NAME": 'modernman',
             "USER": "postgres",
-            "PASSWORD": DB_KEY,
+            # "PASSWORD": DB_KEY,
+            "PASSWORD": 'sweetpoison',
             "HOST": "localhost",
             "client_encoding": "UTF8"
             }
@@ -169,7 +172,7 @@ else:
     
    
 LOGIN_URL = 'login'    
-LOG_OUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'products'
 LOGOUT_REDIRECT_URL   = 'login'
     
     
