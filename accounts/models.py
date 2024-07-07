@@ -90,12 +90,13 @@ class Address(models.Model):
                     )
 
     title = models.CharField(
-                        max_length=3,
-                        choices=TITLE_CHOICES
+                        max_length=4,
+                        choices=TITLE_CHOICES, 
+                        default='MR'
                     )
 
     name = models.CharField(
-                        'name',
+                        'Name',
                         max_length=60,
                         null=False,
                         blank=False
@@ -125,7 +126,8 @@ class Address(models.Model):
     county = models.CharField(
                         'county',
                         max_length=3,
-                        choices=COUNTIES,
+                        choices=COUNTIES, 
+                        default="047",
                         null=False,
                         blank=False
                     )
@@ -151,14 +153,14 @@ class Address(models.Model):
 
     def __str__(self):
         return f"""
-                    {self.title}. {self.name},
-                    {self.address} - {self.postal_code},
-                    {self.town},
-                    {self.county},
-                    {self.city},
-                    {self.country},
-                    {self.phone_no}
-                """
+            {self.title.title()}. {self.name},
+            {self.address} - {self.postal_code},
+            {self.town},
+            {self.county},
+            {self.city},
+            {self.country}.
+            {self.phone_no}.
+        """
 
  
     
