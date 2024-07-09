@@ -1,7 +1,8 @@
 import logging
 from django.db import models
 from customauth.models import CustomUser
-
+from shop.models import Product
+from django.core.validators import MinValueValidator
 
 
 
@@ -34,6 +35,33 @@ class Cart(models.Model):
 
     def is_empty(self):
         return self.cartline_set.all().count() == 0
+    
+
+    def count(self):
+        quantity = 0
+        for i in self.cartline_set.all():
+            quantity += 1
+        return quantity 
+    
+
+
+ 
+
+class CartLine(models.Model):
+    """CartLine model will then connect to a specific product and have an extra field called quantity to store how many of this product are in the basket.
+    """
+    cart = models.ForeignKey(
+                            Cart, 
+                            on_delete=models.CASCADE
+                            )
+    product = models.ForeignKey(
+                            Product, 
+                            on_delete=models.CASCADE
+                            )
+    quantity = models.PositiveIntegerField(
+                            default=1, 
+                            validators=[MinValueValidator(1)]
+                            )
 
     # def createOrder(self, billing_address, shipping_address):
     #     '''creates an order from the cotents of the cart'''
@@ -87,3 +115,47 @@ class Cart(models.Model):
     #     self.status = Cart.SUBMITTED
     #     self.save()
     #     return order
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+# class CartItem(models.Model):
+#     cart_id = models.CharField(max_length=50)
+#     date_added = models.DateTimeField(auto_now_add=True)
+#     quantity = models.IntegerField(default=1)
+#     product = models.ForeignKey(Product)
+
+#     class Meta:
+#         db_table = 'cart_items'
+#         ordering = ['date_added',]
+
+#     def total(self):
+#         return self.quantity*self.product.price
+    
+#     def price(self):
+#         return self.product.price
+    
+#     def name(self):
+#         return self.product.name
+
+#     def get_absolute_url(self):
+#         return self.product.get_absolute_url()
+    
+#     def augment_quantity(self, quantity):
+#         """used incase the user adds the same product the second time"""
+        # self.quantity = self.quantity + int(quantity)
+        # self.quantity+=1
+        # self.save()
+
+

@@ -15,6 +15,12 @@ urlpatterns = [
         ),
     
     path(
+        'checkout/', 
+        include('checkout.urls'),
+        name='checkout'
+        ),
+    
+    path(
         'accounts/', 
         include('accounts.urls'),
         name='accounts'

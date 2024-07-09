@@ -38,9 +38,16 @@
                             More Details
                         </a>
 
-                        <a href="{% url "product" product.slug %}" class="btn border">    
+                        <a href="{% url 'add-to-cart' product.slug %}" class="btn border">    
                             Add to Cart
                         </a>
+
+
+                        {% comment %}
+                            <a href="{% url 'add-to-cart' %}?product_id={{ object.id }}">
+                                Add to basket
+                            </a>
+                        {% endcomment %}
                     </div>
                 </p>
 

@@ -16,9 +16,9 @@ urlpatterns = [
         path(
             'login/',
             LoginView.as_view(
-                                    template_name="customauth/login.html",
-                                    form_class=forms.AuthenticationForm,
-                                ),
+                            template_name="customauth/login.html",
+                            form_class=forms.AuthenticationForm,
+                        ),
                 name="login",
         ),
         

@@ -62,10 +62,21 @@
     </table>
     {% comment %} <a href="{% url "add_to_cart" %}?product_id={{object.id }}"> {% endcomment %}
     <div class="row">
-        <div class="col">
-            <a href="#" class="border btn btn-regular m-2 p-2">    
+        <div class="col"> 
+            <a href="{% url 'add-to-cart'   object.slug  %}" class="btn border">    
                 Add to Cart
             </a>
+            
+            {% comment %}
+                <a href="{% url 'add-to-cart' product.slug %}" class="btn border">    
+                    Add to Cart
+                </a>
+
+                <a href="{% url 'add-to-cart' %}?product_id={{ object.id }}">
+                    Add to basket
+                </a>
+            {% endcomment %}
+            
             <a href="#" class="border btn btn-regular m-2 p-2">    
                 <i class="fas fa-arrow-right"></i>Back
             </a>
