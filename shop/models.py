@@ -75,11 +75,13 @@ class Product(models.Model):
 
     categories = models.ManyToManyField(Category)
     
-    # images = models.ManyToManyField(ProductImage,                        
-    #                 )
+   
 
     def __str__(self):
         return self.name.title()
+    
+    def in_stock(self):
+        return self.stock_count > 0
     
     
     def get_absolute_url(self):

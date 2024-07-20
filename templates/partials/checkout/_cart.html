@@ -1,0 +1,161 @@
+{% load static %}
+
+<div class="px-3 bg-white"> 
+    <div class="container-fluid pt-4">
+        <h2>
+            <b>
+                My Cart
+            </b>
+            
+            <hr>
+        </h2>
+    </div>
+    <div class="container-fluid  cart_container py-3">
+        {% if formset  %}
+            {{ formset.management_form }}
+            <!-- cart start -->
+            <div class="cart row">
+                <div class="col-lg-7  cart__items mb-sm-2 mb-4 shadow   bg-transparent">
+                    <div class="row pb-5 border_custom card">
+                        <div class="card-header">
+                            <h4>
+                                <strong>
+                                    Cart - {{ request.cart.count }} Items
+                                </strong>
+                            </h4>
+                        </div>
+
+                        
+                        <form action="" method="post" class="form">
+                            {% csrf_token %}
+                            {{ formset.management_form }}
+
+                            {% for form in formset %}
+                                {% include 'partials/checkout/_cart_single_item.html' %} 
+                            {% endfor '%}
+                            <div class="form-group"> 
+                                    <button type="submit" class="btn btn-success">
+                                        Update Cart
+                                    </button>
+                            </div> 
+                        </form> 
+                    </div>
+
+                    <!-- start expected shippping -->
+                    <div class="row  my-3  border_custom card shadow">
+                        <div class="card-header">
+                            <h4>
+                                <strong>
+                                    Shipping & Delivery
+                                </strong>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Expected shipping delivery</strong></p>
+                            <p class="mb-0">12.10.2020 - 14.10.2020</p>
+                        </div>
+                    </div> 
+                    <!-- end expected shippping -->
+
+                    <!-- start acceptable payments -->
+                    <div class="row border_custom card shadow">
+                        <div class="card-header">
+                            <h4>
+                                <strong>
+                                    Payment Methods
+                                </strong>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                <strong>We accept</strong>
+                            </p>
+                            <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa" />
+                            <img class="me-2" width="45px"  src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"  alt="American Express" />
+                            <img class="me-2" width="45px"  src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg" alt="Mastercard" />
+                            <img class="me-2" width="45px"   src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp" alt="PayPal acceptance mark" />
+                        </div>
+                    </div> 
+                    <!-- end acceptable payments -->
+                </div>
+                <!-- start cart summary -->
+                <div class="col-lg-4 cart__summary  border_custom mb-5 card px-0 py-0 shadow mb-0 pb-0  ">
+                    <div class="card-header">
+                        <h4>
+                            <strong>
+                                Summary
+                            </strong>
+                        </h4>
+                    </div>
+                    <div class="card-body"> 
+                        <div class="">
+                            <div class="flex justify-content">
+                                <b>Subtotal:</b>
+                                <strong>
+                                    <b class="px-4" style="font-size: 1.1rem;">Ksh. {{ subtotal }}</b>
+                                </strong>
+                            </div> 
+                        </div>
+                        <div class="">
+                            <div class="flex justify-content">
+                                <b>Tax:</b> 
+                                    <strong>
+                                        <b class="" style="font-size: 1.1rem; padding-left: 4rem;">
+                                           Ksh. {{ vat }}
+                                        </b>
+                                    </strong> 
+                            </div> 
+                        </div>
+                        <div class="">
+                            <div class="flex justify-content">
+                                <b>Shipping:</b>
+                                <strong>
+                                    <b class="px-4" style="font-size: 1.1rem;">Ksh. {{ shipping }}</b>
+                                </strong>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="#">
+                            <div class="flex justify-content">
+                                <strong>
+                                    <b>TOTAL:</b>
+                                </strong>
+                                <strong>
+                                    <b class="" style="font-size: 1.1rem; padding-left: 2.3rem;">
+                                        Ksh. {{ total }}
+                                    </b>
+                                </strong>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn-success">
+                                    Proceed to Payment
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-warning">
+                                    Back to Shopping
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- end cart summary -->
+            </div>
+            <!-- end cart  --> 
+        {% else  %}
+            <div class="no-cart-display">
+                <strong class="p-2 text-gray">
+                    <i class="fas fa-cart-empty"></i>
+                    Cart Empty!
+                </strong>
+            </div>
+        {% endif  %}
+    </div>
+</div>
+
+
+
+

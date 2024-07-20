@@ -1,0 +1,50 @@
+{% load static %}
+<div class="card-body">
+    <!-- start cart items -->
+        <!-- start single item -->
+        <div class="">
+            <div class="container-fluid">
+                <div class="row  border round-border   br-2">
+                    <!-- cart item thumbnail -->
+                    <div class="col-md-3 border cart__item_img img">
+                        <img src="{% static 'img/home.png' %}" alt="" srcset="" class="img w-100">
+                    </div>
+                    <div class="col-md-8  flex flex-column justify-content-start align-item-center">
+                        <strong>
+                            <h4>
+                                {{ form.instance.product.name }}
+                            </h4>
+                            <hr>
+                        </strong>
+                        
+                        <div class="d-flex">
+                            <strong class="">Price: </strong>
+                            <p class="px-4">Ksh. {{ form.instance.product.price }}</p>
+                        </div>
+
+                        <div class="d-flex">
+                            <strong class="">Quantity: </strong>
+                            <div class="mx-3 border d-flex">  
+                                <div class="col-10 ">
+                                    {{ form.quantity }} 
+                                </div> 
+                            </div> 
+                        </div>
+
+                        <div class="d-flex py-2">
+                            <strong class="">Amount: </strong>
+                            <!-- <p class="px-4 ">Ksh. 1234.00</p> -->
+                            <p class="px-4 ">{{ form.instance.total }}</p>
+                        </div>
+                    </div>
+                    <div class="col d-flex flex-column justify-content-start py-3 align-item-center"> 
+                        <a href="{% url 'remove-from-cart' form.instance.product.slug %}">
+                            <i class="fas fa-trash text-danger"></i>X
+                        </a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <!-- end single item  -->
+    <!-- end cart items --> 
+</div>
